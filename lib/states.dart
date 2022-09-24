@@ -10,6 +10,8 @@ class States {
   final pages = [
     Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.red,
         title: Text(''),
       ),
       body: Container(
@@ -18,13 +20,18 @@ class States {
         color: Colors.red,
         child: Center(child: Text('1人目')),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        child: const Icon(Icons.add),
+        label: Text(
+          '¥10,000',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     ),
     Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.blue,
         title: Text(''),
       ),
       body: Container(
@@ -33,13 +40,18 @@ class States {
         color: Colors.blue,
         child: Center(child: Text('2人目')),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        child: const Icon(Icons.add),
+        label: Text(
+          '¥20,000',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     ),
     Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.yellow,
         title: const Text(''),
       ),
       body: Container(
@@ -48,9 +60,12 @@ class States {
         color: Colors.yellow,
         child: Center(child: Text('3人目')),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        child: const Icon(Icons.add),
+        label: Text(
+          '¥30,000',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     ),
   ];
