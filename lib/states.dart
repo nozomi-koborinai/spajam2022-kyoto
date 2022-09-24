@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spajam2022_kyoto/components.dart';
+import 'package:spajam2022_kyoto/utils/app_colors.dart';
 
 ///　状態管理用クラス
 class States {
@@ -8,65 +10,9 @@ class States {
 
   /// スワイプウィジェットのそれぞれのページ
   final pages = [
-    Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.red,
-        title: Text(''),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: Colors.red,
-        child: Center(child: Text('1人目')),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Text(
-          '¥10,000',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
-    Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.blue,
-        title: Text(''),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: Colors.blue,
-        child: Center(child: Text('2人目')),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Text(
-          '¥20,000',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
-    Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.yellow,
-        title: const Text(''),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: Colors.yellow,
-        child: Center(child: Text('3人目')),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Text(
-          '¥30,000',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
+    GuideCard(cardColor: AppColors.lightGreen, guideName: '銭湯の優しいおっちゃん'),
+    GuideCard(cardColor: AppColors.skyGreen, guideName: '銭湯の優しいおっちゃん'),
+    GuideCard(cardColor: AppColors.lightOrange, guideName: '銭湯の優しいおっちゃん'),
+    GuideCard(cardColor: AppColors.lightYellow, guideName: '銭湯の優しいおっちゃん'),
   ];
 }

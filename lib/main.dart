@@ -1,6 +1,7 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:spajam2022_kyoto/states.dart';
+import 'package:spajam2022_kyoto/utils/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,49 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return LiquidSwipe(pages: States.instance.pages);
+    return Scaffold(
+      appBar: createAppBar(context),
+      body: createSwiper(context),
+      floatingActionButton: FloatingActionButton.extended(
+        tooltip: 'payment',
+        icon: const Icon(Icons.payment_rounded),
+        label: const Text('このガイドに決定'),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  AppBar createAppBar(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      iconTheme: IconThemeData(color: AppColors.gray),
+      backgroundColor: AppColors.lightGray,
+      title: Text(
+        'ガイド一覧',
+        style: TextStyle(color: AppColors.gray),
+      ),
+      elevation: 0,
+    );
+  }
+
+  Widget createSwiper(BuildContext context) {
+    return Container(
+      color: AppColors.lightGray,
+      child: Swiper(
+          layout: SwiperLayout.CUSTOM,
+          customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
+            ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
+            ..addTranslate(const [
+              Offset(-370.0, -40.0),
+              Offset(0.0, 0.0),
+              Offset(370.0, -40.0)
+            ]),
+          itemWidth: 380.0,
+          itemHeight: 700.0,
+          itemBuilder: (context, index) {
+            return States.instance.pages[index];
+          },
+          itemCount: States.instance.pages.length),
+    );
   }
 }
