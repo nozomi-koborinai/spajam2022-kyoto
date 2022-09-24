@@ -39,7 +39,9 @@ class GuideCard extends StatelessWidget {
                   child: SingleChildScrollView(
                       child: Column(
                     children: [
-                      Image.asset('images/20220924_225118.jpg'),
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.asset('images/20220924_225118.jpg')),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 14, bottom: 30, left: 8),

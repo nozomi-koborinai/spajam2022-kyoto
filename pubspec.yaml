@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   liquid_swipe: ^3.0.0
   card_swiper: ^2.0.4
+  audioplayers: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +29,4 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - musics/

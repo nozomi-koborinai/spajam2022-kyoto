@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:spajam2022_kyoto/states.dart';
 import 'package:spajam2022_kyoto/utils/app_colors.dart';
+import 'package:spajam2022_kyoto/utils/function_utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -80,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, index) {
             return States.instance.pages[index];
           },
+          onIndexChanged: (int value) => FunctionUtils.instance.swipeSound(),
           itemCount: States.instance.pages.length),
     );
   }
