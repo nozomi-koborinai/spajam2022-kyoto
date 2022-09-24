@@ -39,9 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: createSwiper(context),
       floatingActionButton: FloatingActionButton.extended(
         tooltip: 'payment',
+        backgroundColor: AppColors.lightRed,
         icon: const Icon(Icons.payment_rounded),
         label: const Text('このガイドに決定'),
-        onPressed: () {},
+        onPressed: () {
+          /// TODO：決済処理
+          throw UnimplementedError();
+        },
       ),
     );
   }
