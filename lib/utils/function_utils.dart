@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 /// 汎用的なメソッド群
 class FunctionUtils {
@@ -7,8 +8,8 @@ class FunctionUtils {
   FunctionUtils._();
 
   /// フリック音を鳴らす
-  Future swipeSound() async {
+  void swipeSound() {
     final audioCache = AudioCache();
-    await audioCache.play('swipe_sound.wav');
+    audioCache.play('swipe_sound.wav');
   }
 }

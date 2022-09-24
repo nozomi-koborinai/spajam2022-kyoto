@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:spajam2022_kyoto/states.dart';
 import 'package:spajam2022_kyoto/utils/app_colors.dart';
 import 'package:spajam2022_kyoto/utils/function_utils.dart';
+import 'package:spajam2022_kyoto/views/chat_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,8 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: const Icon(Icons.payment_rounded),
         label: const Text('このガイドに決定'),
         onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatPage()),
+          );
+
           /// TODO：決済処理
-          throw UnimplementedError();
         },
       ),
     );
@@ -55,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return AppBar(
       centerTitle: true,
       iconTheme: IconThemeData(color: AppColors.gray),
-      backgroundColor: AppColors.lightGray,
+      backgroundColor: AppColors.grayBackGround,
       title: Text(
         'ガイド一覧',
         style: TextStyle(color: AppColors.gray),
@@ -66,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget createSwiper(BuildContext context) {
     return Container(
-      color: AppColors.lightGray,
+      color: AppColors.grayBackGround,
       child: Swiper(
           layout: SwiperLayout.CUSTOM,
           customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
@@ -81,7 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, index) {
             return States.instance.pages[index];
           },
-          onIndexChanged: (int value) => FunctionUtils.instance.swipeSound(),
+          onIndexChanged: (int value) {
+            FunctionUtils.instance.swipeSound();
+            States.instance.selectedGuide = States.instance.pages[value];
+          },
           itemCount: States.instance.pages.length),
     );
   }

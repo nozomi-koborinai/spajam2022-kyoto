@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:spajam2022_kyoto/states.dart';
 import 'package:spajam2022_kyoto/utils/app_colors.dart';
 
 /// ガイドカード一枚分ウィジェット
@@ -95,5 +96,154 @@ class RegistButton extends StatelessWidget {
       onPressed: () => onPressed.call(),
       child: Text(caption),
     );
+  }
+}
+
+class CommonAppBar extends StatelessWidget {
+  const CommonAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      iconTheme: IconThemeData(color: AppColors.gray),
+      backgroundColor: AppColors.lightGray,
+      title: Text(
+        'ガイド一覧',
+        style: TextStyle(color: AppColors.gray),
+      ),
+      elevation: 0,
+    );
+  }
+}
+
+/// チャット送信用のテキストボックス
+class MultipleLineTextField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 180),
+      child: Scrollbar(
+        child: TextField(
+          maxLines: 10,
+          minLines: 1,
+          controller: States.instance.textController,
+        ),
+      ),
+    );
+  }
+}
+
+/// チャットメッセージ表示用
+class ChatMessageBox extends StatelessWidget {
+  /// 自分のチャットメッセージかどうか（ture：自分、false：相手）
+  /// 左寄せ、右寄せ判定用
+  final bool isMyMessage;
+  final String message;
+  final String sendDateTime;
+
+  const ChatMessageBox(
+      {required this.isMyMessage,
+      required this.message,
+      required this.sendDateTime,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return isMyMessage
+
+        /// 自分が書いたメッセージの場合のレイアウト（右寄せ）
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: 10.0,
+                    maxWidth: 250.0,
+                    minWidth: 50,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.lightGreen,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.lightGreen, //色
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(1, 1),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(message,
+                              style: TextStyle(color: AppColors.white)),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(sendDateTime,
+                                style: TextStyle(color: AppColors.gray2)),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+
+        /// 相手が書いたメッセージの場合のレイアウト（左寄せ）
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: 10.0,
+                    maxWidth: 250.0,
+                    minWidth: 50,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.white, //色
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(1, 1),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(message,
+                              style: TextStyle(
+                                  color: AppColors.gray,
+                                  fontWeight: FontWeight.bold)),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(sendDateTime,
+                                style: TextStyle(color: AppColors.gray2)),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
   }
 }
