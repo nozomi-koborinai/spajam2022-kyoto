@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:spajam2022_kyoto/states.dart';
 import 'package:spajam2022_kyoto/utils/app_colors.dart';
+import 'package:spajam2022_kyoto/utils/hex_color.dart';
 
 /// ガイドカード一枚分ウィジェット
 class GuideCard extends StatelessWidget {
@@ -224,11 +225,11 @@ class ChatMessageBox extends StatelessWidget {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppColors.lightGreen,
+                      color: HexColor('#38b48b'),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.lightGreen, //色
+                          color: HexColor('#38b48b'), //色
                           spreadRadius: 1,
                           blurRadius: 5,
                           offset: Offset(1, 1),
