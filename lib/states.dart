@@ -10,10 +10,23 @@ class States {
 
   /// スワイプウィジェットのそれぞれのページ
   final pages = <GuideCard>[
-    GuideCard(cardColor: AppColors.lightGreen, guideName: '銭湯の優しいおっちゃん1'),
-    GuideCard(cardColor: AppColors.skyGreen, guideName: '銭湯の優しいおっちゃん2'),
-    GuideCard(cardColor: AppColors.lightOrange, guideName: '銭湯の優しいおっちゃん3'),
-    GuideCard(cardColor: AppColors.lightYellow, guideName: '銭湯の優しいおっちゃん4'),
+    GuideCard(
+        cardColor: AppColors.lightGreen,
+        guideName: '銭湯の優しいおっちゃん',
+        imagePath: 'images/20220924_225118.jpg'),
+    GuideCard(
+        cardColor: AppColors.skyGreen,
+        guideName: 'バーのマスター',
+        imagePath: 'images/IMG_3439.jpeg'),
+    GuideCard(
+      cardColor: AppColors.lightOrange,
+      guideName: '銭湯の優しいおっちゃん2',
+      imagePath: 'images/20220924_225118.jpg',
+    ),
+    GuideCard(
+        cardColor: AppColors.lightYellow,
+        guideName: '銭湯の優しいおっちゃん3',
+        imagePath: 'images/20220924_225118.jpg'),
   ];
 
   /// 選択中ガイド

@@ -8,8 +8,12 @@ import 'package:spajam2022_kyoto/utils/app_colors.dart';
 class GuideCard extends StatelessWidget {
   final Color cardColor;
   final String guideName;
+  final String imagePath;
   const GuideCard(
-      {required this.cardColor, required this.guideName, super.key});
+      {required this.cardColor,
+      required this.guideName,
+      required this.imagePath,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class GuideCard extends StatelessWidget {
                     children: [
                       ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
-                          child: Image.asset('images/20220924_225118.jpg')),
+                          child: Image.asset(imagePath)),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 14, bottom: 30, left: 8),
