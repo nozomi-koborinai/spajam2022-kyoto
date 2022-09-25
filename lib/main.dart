@@ -8,12 +8,15 @@ import 'package:spajam2022_kyoto/firebase_options.dart';
 import 'package:spajam2022_kyoto/states.dart';
 import 'package:spajam2022_kyoto/utils/app_colors.dart';
 import 'package:spajam2022_kyoto/utils/function_utils.dart';
+import 'package:spajam2022_kyoto/views/chat_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Stripe.publishableKey =
+      'pk_test_51LlTbeE5GiTUmCGSnYF3JIM0h8ED1RXuZeFDYYnRaSBcMIUfejrAxPKZx8POqyHBSwIjRVwFmmGD2IJrffhvglOT0029NwuSMK';
   runApp(const MyApp());
 }
 
@@ -43,6 +46,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    setupStripe(1000);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: createAppBar(context),
@@ -52,14 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: AppColors.lightRed,
         icon: const Icon(Icons.payment_rounded),
         label: const Text('このガイドに決定'),
-        onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => ChatPage()),
-          // );
+        onPressed: () async {
+          await Stripe.instance.presentPaymentSheet();
 
-          /// TODO：決済処理
-          payStripe(1000);
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatPage()),
+          );
         },
       ),
     );
@@ -99,8 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void payStripe(int amount) async {
-    final String uid = FirebaseAuth.instance.currentUser?.uid ?? 'test';
+  void setupStripe(int amount) async {
+    final String uid = FirebaseAuth.instance.currentUser?.uid ?? '0vXXhc25d1VsgU99a5I5x3vNr4o1';
     final docRef =
         await FirebaseFirestore.instance.collection('customers').doc(uid).collection("checkout_sessions").add({
       'client': 'mobile',
@@ -118,47 +128,23 @@ class _MyHomePageState extends State<MyHomePage> {
       //   );
       // }
 
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          // Main params
-          paymentIntentClientSecret: data['paymentIntent'],
-          merchantDisplayName: 'Flutter Stripe Store Demo',
-          // Customer params
-          customerId: data['customer'],
-          customerEphemeralKeySecret: data['ephemeralKey'],
-          // Extra params
-          applePay: PaymentSheetApplePay(
-            merchantCountryCode: 'DE',
+      print(data);
+
+      try {
+        await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+            // Main params
+            paymentIntentClientSecret: data['paymentIntentClientSecret'],
+            merchantDisplayName: 'Flutter Stripe Store Demo',
+            // Customer params
+            customerId: 'cus_MUjoijx8Hmlu8N',
+            customerEphemeralKeySecret: data['ephemeralKeySecret'],
+            //billingDetails: billingDetails,
           ),
-          googlePay: PaymentSheetGooglePay(
-            merchantCountryCode: 'DE',
-            testEnv: true,
-          ),
-          style: ThemeMode.dark,
-          appearance: PaymentSheetAppearance(
-            colors: PaymentSheetAppearanceColors(
-              background: Colors.lightBlue,
-              primary: Colors.blue,
-              componentBorder: Colors.red,
-            ),
-            shapes: PaymentSheetShape(
-              borderWidth: 4,
-              shadow: PaymentSheetShadowParams(color: Colors.red),
-            ),
-            primaryButton: PaymentSheetPrimaryButtonAppearance(
-              shapes: PaymentSheetPrimaryButtonShape(blurRadius: 8),
-              colors: PaymentSheetPrimaryButtonTheme(
-                light: PaymentSheetPrimaryButtonThemeColors(
-                  background: Color.fromARGB(255, 231, 235, 30),
-                  text: Color.fromARGB(255, 235, 92, 30),
-                  border: Color.fromARGB(255, 235, 92, 30),
-                ),
-              ),
-            ),
-          ),
-          //billingDetails: billingDetails,
-        ),
-      );
+        );
+      } catch (e) {
+        print(e);
+      }
     });
   }
 }
