@@ -45,6 +45,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isLoading = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -55,6 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: createAppBar(context),
       body: createSwiper(context),
@@ -64,12 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: const Icon(Icons.payment_rounded),
         label: const Text('このガイドに決定'),
         onPressed: () async {
-          await Stripe.instance.presentPaymentSheet();
+          try {
+            await Stripe.instance.presentPaymentSheet();
 
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ChatPage()),
-          );
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatPage()),
+            );
+          } catch (e) {
+            final snackBar = SnackBar(
+              content: Text(e.toString()),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
         },
       ),
     );
@@ -109,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void setupStripe(int amount) async {
+  Future setupStripe(int amount) async {
     final String uid = FirebaseAuth.instance.currentUser?.uid ?? '0vXXhc25d1VsgU99a5I5x3vNr4o1';
     final docRef =
         await FirebaseFirestore.instance.collection('customers').doc(uid).collection("checkout_sessions").add({
@@ -120,14 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     docRef.snapshots().listen((snap) async {
       final data = snap.data() as Map;
-      // final sessionId = data['sessionId'];
-      // if (sessionId != null) {
-      //   await _redirectToCheckout(
-      //     publishableKey: publishableKey,
-      //     sessionId: sessionId,
-      //   );
-      // }
-
       print(data);
 
       try {
@@ -144,6 +153,15 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } catch (e) {
         print(e);
+
+        final snackBar = SnackBar(
+          content: Text(e.toString()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
