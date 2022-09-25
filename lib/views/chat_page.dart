@@ -41,7 +41,7 @@ class _ChatPageState extends State<ChatPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 30),
-                child: TextInputField(),
+                child: TextInputField(onUpdate: () => {setState(() {})}),
               ),
             ],
           ),

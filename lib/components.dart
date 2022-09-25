@@ -126,7 +126,8 @@ class CommonAppBar extends StatelessWidget {
 }
 
 class TextInputField extends StatefulWidget {
-  const TextInputField({super.key});
+  final Function onUpdate;
+  const TextInputField({required this.onUpdate, super.key});
 
   @override
   State<TextInputField> createState() => _TextInputFieldState();
@@ -178,6 +179,7 @@ class _TextInputFieldState extends State<TextInputField> {
                     message: States.instance.textController.text,
                     sendDateTime: DateTime.now().toString()));
                 States.instance.textController.text = '';
+                widget.onUpdate.call();
               });
             },
             icon: Icon(Icons.send),
