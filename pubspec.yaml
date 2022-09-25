@@ -18,6 +18,9 @@ dependencies:
   card_swiper: ^2.0.4
   audioplayers: ^0.19.1
   firebase_core: ^1.23.0
+  flutter_stripe: ^5.0.0
+  cloud_firestore: ^3.4.9
+  firebase_auth: ^3.10.0
 
 dev_dependencies:
   flutter_test:
