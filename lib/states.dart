@@ -25,8 +25,8 @@ class States {
     ),
     GuideCard(
         cardColor: AppColors.lightYellow,
-        guideName: '銭湯の優しいおっちゃん2',
-        imagePath: 'images/20220924_225118.jpg'),
+        guideName: 'お笑い芸人',
+        imagePath: 'images/koume1_1.jpeg'),
   ];
 
   /// 選択中ガイド
