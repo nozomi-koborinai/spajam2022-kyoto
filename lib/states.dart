@@ -48,7 +48,7 @@ class States {
         sendDateTime: '09/25 09:31'),
     ChatMessageBox(
         isMyMessage: true,
-        message: '承知しました。よろしくお願いします?',
+        message: '承知しました。よろしくお願いします。',
         sendDateTime: '09/25 10:02'),
   ];
 
