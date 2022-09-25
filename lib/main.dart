@@ -82,7 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
           layout: SwiperLayout.CUSTOM,
           customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
             ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
-            ..addTranslate(const [Offset(-370.0, -40.0), Offset(0.0, 0.0), Offset(370.0, -40.0)]),
+            ..addTranslate(const [
+              Offset(-370.0, -40.0),
+              Offset(0.0, 0.0),
+              Offset(370.0, -40.0)
+            ]),
           itemWidth: 380.0,
           itemHeight: 700.0,
           itemBuilder: (context, index) {
