@@ -17,6 +17,7 @@ dependencies:
   liquid_swipe: ^3.0.0
   card_swiper: ^2.0.4
   audioplayers: ^0.19.1
+  firebase_core: ^1.23.0
 
 dev_dependencies:
   flutter_test:
