@@ -46,7 +46,11 @@ class GuideCard extends StatelessWidget {
                     children: [
                       ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
-                          child: Image.asset(imagePath)),
+                          child: SizedBox(
+                              height: 465,
+                              child: Image.asset(
+                                imagePath,
+                              ))),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 14, bottom: 30, left: 8),
