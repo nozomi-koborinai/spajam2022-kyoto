@@ -64,12 +64,19 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: const Icon(Icons.payment_rounded),
         label: const Text('このガイドに決定'),
         onPressed: () async {
-          await Stripe.instance.presentPaymentSheet();
+          try {
+            await Stripe.instance.presentPaymentSheet();
 
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ChatPage()),
-          );
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatPage()),
+            );
+          } catch (e) {
+            final snackBar = SnackBar(
+              content: Text(e.toString()),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
         },
       ),
     );
@@ -120,14 +127,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     docRef.snapshots().listen((snap) async {
       final data = snap.data() as Map;
-      // final sessionId = data['sessionId'];
-      // if (sessionId != null) {
-      //   await _redirectToCheckout(
-      //     publishableKey: publishableKey,
-      //     sessionId: sessionId,
-      //   );
-      // }
-
       print(data);
 
       try {
@@ -144,6 +143,11 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       } catch (e) {
         print(e);
+
+        final snackBar = SnackBar(
+          content: Text(e.toString()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
   }
