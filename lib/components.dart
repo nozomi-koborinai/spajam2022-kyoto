@@ -46,7 +46,11 @@ class GuideCard extends StatelessWidget {
                     children: [
                       ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
-                          child: Image.asset(imagePath)),
+                          child: SizedBox(
+                              height: 465,
+                              child: Image.asset(
+                                imagePath,
+                              ))),
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 14, bottom: 30, left: 8),
@@ -121,18 +125,68 @@ class CommonAppBar extends StatelessWidget {
   }
 }
 
-/// チャット送信用のテキストボックス
-class MultipleLineTextField extends StatelessWidget {
+class TextInputField extends StatefulWidget {
+  final Function onUpdate;
+  const TextInputField({required this.onUpdate, super.key});
+
+  @override
+  State<TextInputField> createState() => _TextInputFieldState();
+}
+
+class _TextInputFieldState extends State<TextInputField> {
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 180),
-      child: Scrollbar(
-        child: TextField(
-          maxLines: 10,
-          minLines: 1,
-          controller: States.instance.textController,
-        ),
+    return Container(
+      height: 68,
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.camera_alt_outlined),
+            iconSize: 28,
+            color: Colors.black54,
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.photo_outlined),
+            iconSize: 28,
+            color: Colors.black54,
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: TextField(
+                controller: States.instance.textController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                /// 表示用のチャットリストにチャットメッセージを追加
+                States.instance.chatMessageList.add(ChatMessageBox(
+                    isMyMessage: true,
+                    message: States.instance.textController.text,
+                    sendDateTime: DateTime.now().toString()));
+                States.instance.textController.text = '';
+                widget.onUpdate.call();
+              });
+            },
+            icon: Icon(Icons.send),
+            iconSize: 28,
+            color: Colors.black54,
+          ),
+        ],
       ),
     );
   }

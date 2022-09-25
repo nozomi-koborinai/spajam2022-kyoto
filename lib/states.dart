@@ -17,16 +17,16 @@ class States {
     GuideCard(
         cardColor: AppColors.skyGreen,
         guideName: 'バーのマスター',
-        imagePath: 'images/IMG_3439.jpeg'),
+        imagePath: 'images/IMG_4E7A57CF2D0F-1.jpeg'),
     GuideCard(
       cardColor: AppColors.lightOrange,
-      guideName: '銭湯の優しいおっちゃん2',
-      imagePath: 'images/20220924_225118.jpg',
+      guideName: 'まいこさん',
+      imagePath: 'images/sp-038257700s1649383592.jpeg',
     ),
     GuideCard(
         cardColor: AppColors.lightYellow,
-        guideName: '銭湯の優しいおっちゃん3',
-        imagePath: 'images/20220924_225118.jpg'),
+        guideName: 'お笑い芸人',
+        imagePath: 'images/koume1_1.jpeg'),
   ];
 
   /// 選択中ガイド
@@ -48,7 +48,7 @@ class States {
         sendDateTime: '09/25 09:31'),
     ChatMessageBox(
         isMyMessage: true,
-        message: '承知しました。よろしくお願いします?',
+        message: '承知しました。よろしくお願いします。',
         sendDateTime: '09/25 10:02'),
   ];
 
