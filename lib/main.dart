@@ -45,6 +45,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isLoading = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -55,6 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: createAppBar(context),
       body: createSwiper(context),
@@ -116,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void setupStripe(int amount) async {
+  Future setupStripe(int amount) async {
     final String uid = FirebaseAuth.instance.currentUser?.uid ?? '0vXXhc25d1VsgU99a5I5x3vNr4o1';
     final docRef =
         await FirebaseFirestore.instance.collection('customers').doc(uid).collection("checkout_sessions").add({
@@ -148,6 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
           content: Text(e.toString()),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
